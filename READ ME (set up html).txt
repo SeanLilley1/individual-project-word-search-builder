@@ -1,0 +1,7 @@
+This file will go step by step to tell you on how to make your word search.
+
+1. Edit the words in the words.txt file to the words you want in the word search
+2. Run WordSearchBuilder.exe
+3. A new file called Wordsearch.txt will be made in the same file
+4. Open Wordsearch.txt and then click file, save as and save the file name as Wordsearch.html
+5.Open Wordsearch.html and enjoy your puzzle

@@ -1,0 +1,91 @@
+import random
+import os
+from PIL import Image
+
+# define energy levels and starting energy
+energy_levels = {"high": 70, "medium": 50, "low": 30}
+starting_energy = "medium"
+
+# define game map
+game_map = {
+    "start": {
+        "description": "You wake up in a dark room. You can barely see anything. What do you do?",
+        "options": {
+            "turn on flashlight": "flashlight",
+            "call out for help": "help"
+        }
+    },
+    "flashlight": {
+        "description": "You turn on your flashlight and look around. You see a door and a window. Which do you choose?",
+        "options": {
+            "door": "door",
+            "window": "window"
+        }
+    },
+    "help": {
+        "description": "You call out for help, but no one responds. What do you do now?",
+        "options": {
+            "turn on flashlight": "flashlight",
+            "wait": "wait"
+        }
+    },
+    "door": {
+        "description": "You try to open the door, but it's locked. You need to find a key. What do you do?",
+        "options": {
+            "search the room": "search",
+            "break down the door": "break",
+            "look for a keyhole": "keyhole"
+        }
+    },
+    "window": {
+        "description": "You look out the window and see that you're on the fifth floor of a building. What do you do?",
+        "options": {
+            "break the window": "break",
+            "look for another way out": "search"
+        }
+    },
+    "search": {
+        "description": "You search the room and find a key on the desk. What do you do now?",
+        "options": {
+            "use the key on the door": "door",
+            "use the key on the window": "window"
+        }
+    },
+    "break": {
+        "description": "You try to break down the door or window, but you're too weak. Your energy level is decreasing. What do you do?",
+        "options": {
+            "rest": "rest",
+            "keep trying": "keep_trying"
+        }
+    },
+    "keyhole": {
+        "description": "You look for a keyhole and find one on the door. You use the key and the door opens. You're free!",
+        "options": {}
+    },
+    "wait": {
+        "description": "You wait for a while, but no one comes. Your energy level is decreasing. What do you do?",
+        "options": {
+            "turn on flashlight": "flashlight",
+            "rest": "rest"
+        }
+    },
+    "rest": {
+        "description": "You rest and regain some energy. What do you do now?",
+        "options": {
+            "go back to start": "start"
+        }
+    },
+    "keep_trying": {
+        "description": "You keep trying to break down the door or window, but you're too weak. Your energy level is decreasing. What do you do?",
+        "options": {
+            "rest": "rest",
+            "keep trying": "keep_trying"
+        }
+    }
+}
+
+# define energy change functions
+def decrease_energy(current_energy):
+    energy_levels[current_energy] -= random.randint(10, 20)
+    if energy_levels[current_energy] <= 0:
+        return "low"
